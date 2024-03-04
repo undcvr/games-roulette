@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'b';
+    src: url(../fonts/WorkSans-Bold.ttf);
+}
+@font-face {
+    font-family: 'r';
+    src: url(../fonts/WorkSans-Regular.ttf);
+}
+@font-face {
+    font-family: 't';
+    src: url(../fonts/WorkSans-Thin.ttf);
+}
