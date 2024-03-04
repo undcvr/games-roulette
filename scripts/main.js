@@ -106,8 +106,6 @@ document.querySelector('.search-result-container').addEventListener('click', fun
 
 })
 
-// console.log(document.querySelector('.luck-line').getBoundingClientRect().x)
-
 document.querySelector('.games-block').addEventListener('click', function(e) {
     for(let i = 0; i < addedGames.length; i++) {
         if(e.target.classList[1] == 'g'+addedGames[i]) {
@@ -116,8 +114,6 @@ document.querySelector('.games-block').addEventListener('click', function(e) {
         }
     }
 })
-// console.log(document.querySelectorAll('.luck-banner')[0].classList[1])
-// console.log(document.querySelectorAll('.luck-banner').length)
 
 document.querySelector('.spin-btn').addEventListener('click', function() {
     if (addedGames.length < 2) {
@@ -144,7 +140,6 @@ document.querySelector('.spin-btn').addEventListener('click', function() {
         let plusmargininterval = setInterval(() => {
             checkSpeeds +=1
             plusMargin = speeds[checkSpeeds]
-            // console.log(plusMargin);
             if (plusMargin == 0.04) {
                 let first = document.querySelector('.luck-line').getBoundingClientRect().x - document.querySelectorAll('.luck-banner')[1].getBoundingClientRect().x;
                 let second = document.querySelector('.luck-line').getBoundingClientRect().x - document.querySelectorAll('.luck-banner')[2].getBoundingClientRect().x;
