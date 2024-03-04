@@ -195,7 +195,7 @@ document.querySelector('.spin-btn').addEventListener('click', function() {
     }
 })
 
-fetch('games.json')
+fetch('https://raw.githubusercontent.com/undcvr/games-roulette/master/scripts/games.json')
 .then((response) => response.json())
 .then(function (json) {
     document.querySelector('.search-enter-contanier').addEventListener('click', function(input) {
