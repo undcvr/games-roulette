@@ -119,12 +119,12 @@ document.querySelector('.addCustom-btn').addEventListener('click', function () {
             }, 300);
         }, 3000);
     } else {
-        let randomNumber = Math.floor(Math.random() * (9999999 - 1000000) + 9999999)
-        addedGames.push(randomNumber)
+        // let randomNumber = Math.floor(Math.random() * (999 - 1000) + 999)
+        addedGames.push(addCustom_input.value)
 
         let addedGames_block = document.createElement('div')
         addedGames_block.classList.add('games-content')
-        addedGames_block.classList.add('g' + randomNumber)
+        addedGames_block.classList.add('g' + addCustom_input.value)
         addedGames_block.style.cssText = 'background: white; width: 170px; height: 84px; border-radius: 20px;'
         document.querySelector('.games-block').append(addedGames_block)
 
@@ -228,12 +228,37 @@ document.querySelector('.spin-btn').addEventListener('click', function () {
                 let statRandom = random()
                 i = 0
                 document.querySelectorAll('.luck-banner')[0].remove()
-
-                let luckBanner = document.createElement('img')
+                
+                // let luckBanner = document.createElement('img')
+                // luckBanner.classList.add('luck-banner')
+                // luckBanner.classList.add(statRandom)
+                
+                let luckBanner = document.createElement('div')
                 luckBanner.classList.add('luck-banner')
                 luckBanner.classList.add(statRandom)
-                luckBanner.src = `https://steamcdn-a.akamaihd.net/steam/apps/${statRandom}/header.jpg`
 
+                let luckBanner_img = document.createElement('img')
+                luckBanner_img.classList.add('luck-banner-img')
+                luckBanner.append(luckBanner_img)
+                
+                if(statRandom > 999) {
+                    luckBanner_img.src = `https://steamcdn-a.akamaihd.net/steam/apps/${statRandom}/header.jpg`
+                    // luckBanner.src = `https://steamcdn-a.akamaihd.net/steam/apps/${statRandom}/header.jpg`
+                } 
+                else {
+                    luckBanner_img.src = `https://img.freepik.com/free-vector/digital-technology-background-with-abstract-wave-border_53876-117508.jpg`
+
+                    let luckBanner_text = document.createElement('h4')
+                    luckBanner_text.classList.add('luck-banner-h4')
+                    luckBanner.append(luckBanner_text)
+                    luckBanner_text.innerText = statRandom
+                    
+                    // luckBanner.src = `https://steamcdn-a.akamaihd.net/steam/apps/${statRandom}/header.jpg`
+                    // luckBanner.src = `https://cdn-user30887.skyeng.ru/uploads/668e8405e46d8885407591.png`
+                    // luckBanner.innerHTML = `<h4 style='color: black; z-index: 999; font-size: 999px;'>${statRandom}</h4>`
+                    
+                }
+                
                 document.querySelector('.luck-content').append(luckBanner)
             }
         }, 1);
@@ -297,4 +322,4 @@ fetch('https://raw.githubusercontent.com/undcvr/games-roulette/master/scripts/ga
         })
     })
 
-document.querySelector('.buildInfo').innerText = 'Build: 0.2 Beta'
+document.querySelector('.buildInfo').innerText = 'Build: 0.3 Beta'
