@@ -74,43 +74,62 @@ function random() {
         return random()
     }
 }
+function RGBrandom() {
+    let r = Math.floor(Math.random() * (255 - 0 + 1) +  0)
+    let g = Math.floor(Math.random() * (255 - 0 + 1) +  0)
+    let b = Math.floor(Math.random() * (255 - 0 + 1) +  0)
+    return `rgb(${r}, ${g}, ${b});`
+}
 
 document.querySelector('.search-result-container').addEventListener('click', function (e) {
-    addedGames.push(e.target.id)
-
-    let addedGames_block = document.createElement('div')
-    addedGames_block.classList.add('games-content')
-    addedGames_block.classList.add('g' + e.target.id)
-    document.querySelector('.games-block').append(addedGames_block)
-
-    let addedGames_h4 = document.createElement('h4')
-    addedGames_h4.classList.add('games-content-delete')
-    addedGames_h4.innerText = 'Удалить'
-    addedGames_block.append(addedGames_h4)
-
-    let addedGames_redCover = document.createElement('div')
-    addedGames_redCover.classList.add('red-cover')
-    addedGames_block.append(addedGames_redCover)
-
-    let addedGames_img = document.createElement('img')
-    addedGames_img.classList.add('games-content-banner')
-    addedGames_img.src = `https://steamcdn-a.akamaihd.net/steam/apps/${e.target.id}/header.jpg`
-    addedGames_block.append(addedGames_img)
-
-
-    if (addedGames.length >= 2) {
-        for (let i = 0; i < document.querySelectorAll('.luck-banner').length; i++) {
-            document.querySelectorAll('.luck-banner')[i].src = `https://steamcdn-a.akamaihd.net/steam/apps/${random()}/header.jpg`
+    if (addedGames.includes(e.target.id)) {
+        document.querySelector('.start_alert').innerText = 'Нельзя добавлять одну игру 2 раза'
+        document.querySelector('.start_alert').style.cssText = 'top: 50px;'
+        setTimeout(() => {
+            document.querySelector('.start_alert').style.cssText = 'top: -50px;'
+            setTimeout(() => {
+                document.querySelector('.start_alert').innerText = 'Что бы начать нужно добавить минимум 2 игры'
+            }, 300);
+        }, 3000);
+    } else {
+        addedGames.push(e.target.id)
+    
+        let addedGames_block = document.createElement('div')
+        addedGames_block.classList.add('games-content')
+        addedGames_block.classList.add('g' + e.target.id)
+        document.querySelector('.games-block').append(addedGames_block)
+    
+        let addedGames_h4 = document.createElement('h4')
+        addedGames_h4.classList.add('games-content-delete')
+        addedGames_h4.innerText = 'Удалить'
+        addedGames_block.append(addedGames_h4)
+    
+        let addedGames_redCover = document.createElement('div')
+        addedGames_redCover.classList.add('red-cover')
+        addedGames_block.append(addedGames_redCover)
+    
+        let addedGames_img = document.createElement('img')
+        addedGames_img.classList.add('games-content-banner')
+        addedGames_img.src = `https://steamcdn-a.akamaihd.net/steam/apps/${e.target.id}/header.jpg`
+        addedGames_block.append(addedGames_img)
+    
+        if (addedGames.length >= 2) {
+            for (let i = 0; i < document.querySelectorAll('.luck-banner').length; i++) {
+                document.querySelectorAll('.luck-banner')[i].src = `https://steamcdn-a.akamaihd.net/steam/apps/${random()}/header.jpg`
+            }
         }
     }
-
 })
 
 let addCustom_input = document.querySelector('.addCustom-input')
 
 document.querySelector('.addCustom-btn').addEventListener('click', function () {
-    if (addCustom_input.value == '') {
-        document.querySelector('.start_alert').innerText = 'Нельзя добавить игру без названия'
+    if (addCustom_input.value == '' || addedGames.includes(addCustom_input.value)) {
+        if (addCustom_input.value == '') {
+            document.querySelector('.start_alert').innerText = 'Нельзя добавить игру без названия'
+        } else {
+            document.querySelector('.start_alert').innerText = 'Нельзя добавлять одну игру 2 раза'
+        }
         document.querySelector('.start_alert').style.cssText = 'top: 50px;'
         setTimeout(() => {
             document.querySelector('.start_alert').style.cssText = 'top: -50px;'
@@ -124,7 +143,7 @@ document.querySelector('.addCustom-btn').addEventListener('click', function () {
 
         let addedGames_block = document.createElement('div')
         addedGames_block.classList.add('games-content')
-        addedGames_block.classList.add('g' + addCustom_input.value)
+        addedGames_block.classList.add('g' + addCustom_input.value.split(' '))
         addedGames_block.style.cssText = 'background: white; width: 170px; height: 84px; border-radius: 20px;'
         document.querySelector('.games-block').append(addedGames_block)
 
@@ -235,7 +254,7 @@ document.querySelector('.spin-btn').addEventListener('click', function () {
                 
                 let luckBanner = document.createElement('div')
                 luckBanner.classList.add('luck-banner')
-                luckBanner.classList.add(statRandom)
+                luckBanner.classList.add(statRandom.split(' '))
 
                 let luckBanner_img = document.createElement('img')
                 luckBanner_img.classList.add('luck-banner-img')
@@ -246,7 +265,8 @@ document.querySelector('.spin-btn').addEventListener('click', function () {
                     // luckBanner.src = `https://steamcdn-a.akamaihd.net/steam/apps/${statRandom}/header.jpg`
                 } 
                 else {
-                    luckBanner_img.src = `https://img.freepik.com/free-vector/digital-technology-background-with-abstract-wave-border_53876-117508.jpg`
+                    // luckBanner_img.src = `https://img.freepik.com/free-vector/digital-technology-background-with-abstract-wave-border_53876-117508.jpg`
+                    luckBanner_img.style.cssText = `background: ${RGBrandom()}`
 
                     let luckBanner_text = document.createElement('h4')
                     luckBanner_text.classList.add('luck-banner-h4')
@@ -322,4 +342,4 @@ fetch('https://raw.githubusercontent.com/undcvr/games-roulette/master/scripts/ga
         })
     })
 
-document.querySelector('.buildInfo').innerText = 'Build: 0.3 Beta'
+document.querySelector('.buildInfo').innerText = 'Build: 0.4 Release'
